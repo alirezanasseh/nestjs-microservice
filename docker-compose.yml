@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  ### 🛢 PostgreSQL Databases (One per Microservice) ###
+  postgres_users:
+    image: postgres
+    restart: always
+    env_file:
+      - ./apps/users/.env
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata_users:/var/lib/postgresql/data
+
+  postgres_orders:
+    image: postgres
+    restart: always
+    env_file:
+      - ./apps/orders/.env
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata_orders:/var/lib/postgresql/data
+
+  postgres_payments:
+    image: postgres
+    restart: always
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata_payments:/var/lib/postgresql/data
+
+  postgres_cqrs:
+    image: postgres
+    restart: always
+    env_file:
+      - ./apps/cqrs/.env
+    ports:
+      - "5436:5432"
+    volumes:
+      - pgdata_cqrs:/var/lib/postgresql/data
+
+  ### 🐇 RabbitMQ for Message Queue ###
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    env_file:
+      - ./.env
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  ### 🚀 API Gateway ###
+  api-gateway:
+    build: ./apps/api-gateway
+    depends_on:
+      - rabbitmq
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./apps/api-gateway/.env
+
+  ### 📌 Users Microservice ###
+  users:
+    build: ./apps/users
+    depends_on:
+      - rabbitmq
+      - postgres_users
+    env_file:
+      - ./apps/users/.env
+
+  ### 📌 Orders Microservice ###
+  orders:
+    build: ./apps/orders
+    depends_on:
+      - rabbitmq
+      - postgres_orders
+    env_file:
+      - ./apps/orders/.env
+
+  ### 📌 Payments Microservice ###
+  payments:
+    build: ./apps/payments
+    depends_on:
+      - rabbitmq
+      - postgres_payments
+    env_file:
+      - ./apps/payments/.env
+
+  ### 📌 CQRS Microservice ###
+  cqrs:
+    build: ./apps/cqrs
+    depends_on:
+      - rabbitmq
+      - postgres_cqrs
+    env_file:
+      - ./apps/cqrs/.env
+
+volumes:
+  pgdata_users:
+  pgdata_orders:
+  pgdata_payments:
+  pgdata_cqrs:
