@@ -4,6 +4,7 @@ services:
   ### 🛢 PostgreSQL Databases (One per Microservice) ###
   postgres_users:
     image: postgres
+    container_name: postgres_users
     restart: always
     env_file:
       - ./apps/users/.env
@@ -14,6 +15,7 @@ services:
 
   postgres_orders:
     image: postgres
+    container_name: postgres_orders
     restart: always
     env_file:
       - ./apps/orders/.env
@@ -24,6 +26,7 @@ services:
 
   postgres_payments:
     image: postgres
+    container_name: postgres_payments
     restart: always
     env_file:
       - ./apps/payments/.env
@@ -34,6 +37,7 @@ services:
 
   postgres_cqrs:
     image: postgres
+    container_name: postgres_cqrs
     restart: always
     env_file:
       - ./apps/cqrs/.env
@@ -53,6 +57,7 @@ services:
 
   ### 🚀 API Gateway ###
   api-gateway:
+    container_name: api-gateway
     build:
       context: .
       dockerfile: ./apps/api-gateway/Dockerfile
@@ -65,6 +70,7 @@ services:
 
   ### 📌 Users Microservice ###
   users:
+    container_name: users
     build:
       context: .
       dockerfile: ./apps/users/Dockerfile
@@ -76,6 +82,7 @@ services:
 
   ### 📌 Orders Microservice ###
   orders:
+    container_name: orders
     build:
       context: .
       dockerfile: ./apps/orders/Dockerfile
@@ -87,6 +94,7 @@ services:
 
   ### 📌 Payments Microservice ###
   payments:
+    container_name: payments
     build:
       context: .
       dockerfile: ./apps/payments/Dockerfile
@@ -98,6 +106,7 @@ services:
 
   ### 📌 CQRS Microservice ###
   cqrs:
+    container_name: cqrs
     build:
       context: .
       dockerfile: ./apps/cqrs/Dockerfile
