@@ -5,4 +5,8 @@ export class UsersService {
   getHello(): string {
     return 'Hello World!';
   }
+
+  register() {
+    return 'Register';
+  }
 }
