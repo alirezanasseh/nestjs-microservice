@@ -1,5 +1,26 @@
-# Use official Node.js image
-FROM node:22-alpine
+# Development Stage
+FROM node:22-alpine AS development
+
+# Set working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the application files
+COPY /apps/api-gateway ./apps/api-gateway
+COPY /nest-cli.json tsconfig.json ./
+
+# Expose API Gateway port
+EXPOSE 3000
+
+# Start API Gateway in development mode using Nodemon
+CMD ["npx", "nodemon", "--config", "apps/api-gateway/nodemon.json"]
+
+# ========================================
+# Production Stage
+FROM node:22-alpine AS production
 
 # Set the working directory inside the container
 WORKDIR /usr/src/app
@@ -9,10 +30,14 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application files
-COPY . .
+COPY /apps/api-gateway ./apps/api-gateway
+COPY /nest-cli.json tsconfig.json ./
+
+# Build the application
+RUN npm run build api-gateway
 
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "run", "start:dev"]
+CMD ["node", "dist/apps/api-gateway/main"]
