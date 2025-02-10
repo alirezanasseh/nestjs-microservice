@@ -53,7 +53,9 @@ services:
 
   ### 🚀 API Gateway ###
   api-gateway:
-    build: ./apps/api-gateway
+    build:
+      context: .
+      dockerfile: ./apps/api-gateway/Dockerfile
     depends_on:
       - rabbitmq
     ports:
@@ -63,7 +65,9 @@ services:
 
   ### 📌 Users Microservice ###
   users:
-    build: ./apps/users
+    build:
+      context: .
+      dockerfile: ./apps/users/Dockerfile
     depends_on:
       - rabbitmq
       - postgres_users
@@ -72,7 +76,9 @@ services:
 
   ### 📌 Orders Microservice ###
   orders:
-    build: ./apps/orders
+    build:
+      context: .
+      dockerfile: ./apps/orders/Dockerfile
     depends_on:
       - rabbitmq
       - postgres_orders
@@ -81,7 +87,9 @@ services:
 
   ### 📌 Payments Microservice ###
   payments:
-    build: ./apps/payments
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
     depends_on:
       - rabbitmq
       - postgres_payments
@@ -90,7 +98,9 @@ services:
 
   ### 📌 CQRS Microservice ###
   cqrs:
-    build: ./apps/cqrs
+    build:
+      context: .
+      dockerfile: ./apps/cqrs/Dockerfile
     depends_on:
       - rabbitmq
       - postgres_cqrs
