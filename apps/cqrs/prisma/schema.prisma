@@ -12,3 +12,14 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model UserPurchaseHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  userName  String
+  email     String
+  orders    Json
+  payments  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
