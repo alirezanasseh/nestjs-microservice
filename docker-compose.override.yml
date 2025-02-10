@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ./apps/api-gateway/Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./apps/api-gateway/src:/usr/src/app/apps/api-gateway/src
+      - ./apps/api-gateway/nodemon.json:/usr/src/app/apps/api-gateway/nodemon.json
+      - /usr/src/app/apps/api-gateway/node_modules
+
+  users:
+    volumes:
+      - ./apps/users/src:/usr/src/app/apps/users/src
+      - ./apps/users/nodemon.json:/usr/src/app/apps/users/nodemon.json
+      - /usr/src/app/apps/users/node_modules
+
+  orders:
+    volumes:
+      - ./apps/orders/src:/usr/src/app/apps/orders/src
+      - ./apps/orders/nodemon.json:/usr/src/app/apps/orders/nodemon.json
+      - /usr/src/app/apps/orders/node_modules
+
+  payments:
+    volumes:
+      - ./apps/payments/src:/usr/src/app/apps/payments/src
+      - ./apps/payments/nodemon.json:/usr/src/app/apps/payments/nodemon.json
+      - /usr/src/app/apps/payments/node_modules
