@@ -1,0 +1,5 @@
+{
+  "watch": ["apps/api-gateway/src"],
+  "ext": "ts",
+  "exec": "ts-node apps/api-gateway/src/main.ts"
+}

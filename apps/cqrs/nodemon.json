@@ -1,0 +1,5 @@
+{
+  "watch": ["apps/cqrs/src"],
+  "ext": "ts",
+  "exec": "ts-node apps/cqrs/src/main.ts"
+}
