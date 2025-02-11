@@ -26,17 +26,6 @@ export class AuthService {
     }
   }
 
-  async hashPassword(password: string): Promise<string> {
-    return await argon2.hash(password);
-  }
-
-  async comparePasswords(
-    password: string,
-    hashedPassword: string,
-  ): Promise<boolean> {
-    return await argon2.verify(hashedPassword, password);
-  }
-
   generateToken(user: UserType) {
     const payload: JwtPayloadType = { sub: user.id, user };
     return this.jwtService.sign(payload);
