@@ -14,18 +14,36 @@ services:
       - /usr/src/app/apps/api-gateway/node_modules
 
   users:
+    build:
+      context: .
+      dockerfile: ./apps/users/Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
     volumes:
       - ./apps/users/src:/usr/src/app/apps/users/src
       - ./apps/users/nodemon.json:/usr/src/app/apps/users/nodemon.json
       - /usr/src/app/apps/users/node_modules
 
   orders:
+    build:
+      context: .
+      dockerfile: ./apps/orders/Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
     volumes:
       - ./apps/orders/src:/usr/src/app/apps/orders/src
       - ./apps/orders/nodemon.json:/usr/src/app/apps/orders/nodemon.json
       - /usr/src/app/apps/orders/node_modules
 
   payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    environment:
+      - NODE_ENV=development
     volumes:
       - ./apps/payments/src:/usr/src/app/apps/payments/src
       - ./apps/payments/nodemon.json:/usr/src/app/apps/payments/nodemon.json
