@@ -9,7 +9,11 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the entire application
-COPY . .
+COPY /apps/cqrs ./apps/cqrs
+COPY /nest-cli.json tsconfig.json ./
+
+# Generate Prisma client
+RUN npx prisma generate --schema apps/cqrs/prisma/schema.prisma
 
 # Start CQRS in development mode using Nodemon
 CMD ["npx", "nodemon", "--config", "apps/cqrs/nodemon.json"]

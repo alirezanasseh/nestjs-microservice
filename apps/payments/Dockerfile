@@ -9,7 +9,11 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the entire application
-COPY . .
+COPY /apps/payments ./apps/payments
+COPY /nest-cli.json tsconfig.json ./
+
+# Generate Prisma client
+RUN npx prisma generate --schema apps/payments/prisma/schema.prisma
 
 # Start Payments in development mode using Nodemon
 CMD ["npx", "nodemon", "--config", "apps/payments/nodemon.json"]

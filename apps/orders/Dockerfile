@@ -9,7 +9,11 @@ COPY package*.json ./
 RUN npm install
 
 # Copy the entire application
-COPY . .
+COPY /apps/orders ./apps/orders
+COPY /nest-cli.json tsconfig.json ./
+
+# Generate Prisma client
+RUN npx prisma generate --schema apps/orders/prisma/schema.prisma
 
 # Start Orders in development mode using Nodemon
 CMD ["npx", "nodemon", "--config", "apps/orders/nodemon.json"]
