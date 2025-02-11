@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as argon2 from 'argon2';
 import { UserType } from '../types/user.type';
 import { JwtPayloadType } from '../types/jwt-payload.type';
 import { HttpService } from '@nestjs/axios';
