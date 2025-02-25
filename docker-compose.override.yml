@@ -1,3 +1,9 @@
+# Docker Compose allows us to have an override file that applies only in development.
+# ✅ What This Does:
+# Maps the local src/ folder to the container (/usr/src/app/apps/.../src).
+# Changes made to .ts files instantly reflect inside the container.
+# No need to rebuild for code changes.
+
 version: '3.8'
 
 services:
