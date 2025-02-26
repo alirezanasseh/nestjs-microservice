@@ -1,5 +1,8 @@
 {
-  "watch": ["apps/api-gateway/src"],
+  "watch": [
+    "apps/api-gateway/src",
+    "libs/shared-types/src"
+  ],
   "ext": "ts",
-  "exec": "ts-node apps/api-gateway/src/main.ts"
+  "exec": "ts-node -r tsconfig-paths/register apps/api-gateway/src/main.ts"
 }
