@@ -31,12 +31,19 @@ export class UsersService {
     }
 
     const passwordHash = await this.hashPassword(password);
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         name,
         email,
         password: passwordHash,
       },
     });
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      createdAt: user.createdAt,
+    };
   }
 }
