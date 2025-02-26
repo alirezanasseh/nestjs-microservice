@@ -8,15 +8,17 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
-# Copy the entire application
-COPY /apps/users ./apps/users
-COPY /nest-cli.json tsconfig.json ./
+# Copy the entire codebase
+COPY . .
+
+# Build the shared library first
+RUN npm run build shared-types
 
 # Generate Prisma client
 RUN npx prisma generate --schema apps/users/prisma/schema.prisma
 
 # Start Users in development mode using Nodemon
-CMD ["npx", "nodemon", "--config", "apps/users/nodemon.json"]
+CMD ["npx", "ts-node", "-r", "tsconfig-paths/register", "apps/api-gateway/src/main.ts"]
 
 # ========================================
 # Production Stage

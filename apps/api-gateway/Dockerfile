@@ -8,12 +8,17 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 
-# Copy the rest of the application files
-COPY /apps/api-gateway ./apps/api-gateway
-COPY /nest-cli.json tsconfig.json ./
+# Copy the entire codebase
+COPY . .
+
+# Build the shared library first
+RUN npm run build shared-types
 
 # Expose API Gateway port
 EXPOSE 3000
+
+# Use our custom entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Start API Gateway in development mode using Nodemon
 CMD ["npx", "nodemon", "--config", "apps/api-gateway/nodemon.json"]
@@ -27,13 +32,15 @@ WORKDIR /usr/src/app
 
 # Copy package.json and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm install --omit=dev
 
-# Copy the rest of the application files
-COPY /apps/api-gateway ./apps/api-gateway
-COPY /nest-cli.json tsconfig.json ./
+# Copy the entire codebase
+COPY . .
 
-# Build the application
+# Build shared libraries first (without cleaning)
+RUN npm run build shared-types --no-clean
+
+# Build the API Gateway
 RUN npm run build api-gateway
 
 # Expose the port the app runs on
