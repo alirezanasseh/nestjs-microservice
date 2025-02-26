@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   ### 🛢 PostgreSQL Databases (One per Microservice) ###
   postgres_users:
