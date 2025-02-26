@@ -1,9 +1,3 @@
-# Docker Compose allows us to have an override file that applies only in development.
-# ✅ What This Does:
-# Maps the local src/ folder to the container (/usr/src/app/apps/.../src).
-# Changes made to .ts files instantly reflect inside the container.
-# No need to rebuild for code changes.
-
 version: '3.8'
 
 services:
@@ -16,8 +10,12 @@ services:
       - NODE_ENV=development
     volumes:
       - ./apps/api-gateway/src:/usr/src/app/apps/api-gateway/src
+      - ./libs/shared-types/src:/usr/src/app/libs/shared-types/src
       - ./apps/api-gateway/nodemon.json:/usr/src/app/apps/api-gateway/nodemon.json
-      - /usr/src/app/apps/api-gateway/node_modules
+      - ./nest-cli.json:/usr/src/app/nest-cli.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+      - /usr/src/app/node_modules
+      - ./dist:/usr/src/app/dist
 
   users:
     build:
@@ -28,8 +26,12 @@ services:
       - NODE_ENV=development
     volumes:
       - ./apps/users/src:/usr/src/app/apps/users/src
+      - ./libs/shared-types/src:/usr/src/app/libs/shared-types/src
       - ./apps/users/nodemon.json:/usr/src/app/apps/users/nodemon.json
-      - /usr/src/app/apps/users/node_modules
+      - ./nest-cli.json:/usr/src/app/nest-cli.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+      - /usr/src/app/node_modules
+      - dist:/usr/src/app/dist
 
   orders:
     build:
@@ -40,8 +42,12 @@ services:
       - NODE_ENV=development
     volumes:
       - ./apps/orders/src:/usr/src/app/apps/orders/src
+      - ./libs/shared-types/src:/usr/src/app/libs/shared-types/src
       - ./apps/orders/nodemon.json:/usr/src/app/apps/orders/nodemon.json
-      - /usr/src/app/apps/orders/node_modules
+      - ./nest-cli.json:/usr/src/app/nest-cli.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+      - /usr/src/app/node_modules
+      - dist:/usr/src/app/dist
 
   payments:
     build:
@@ -52,5 +58,12 @@ services:
       - NODE_ENV=development
     volumes:
       - ./apps/payments/src:/usr/src/app/apps/payments/src
+      - ./libs/shared-types/src:/usr/src/app/libs/shared-types/src
       - ./apps/payments/nodemon.json:/usr/src/app/apps/payments/nodemon.json
-      - /usr/src/app/apps/payments/node_modules
+      - ./nest-cli.json:/usr/src/app/nest-cli.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+      - /usr/src/app/node_modules
+      - dist:/usr/src/app/dist
+
+volumes:
+  dist:
