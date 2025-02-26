@@ -26,7 +26,8 @@
     "prebuild:original": "rimraf dist",
     "prebuild": "echo 'Skipping dist cleanup to avoid volume issues'",
     "build:libs": "nest build shared-types --no-clean",
-    "build:all": "npm run build:libs && nest build api-gateway && nest build users && nest build orders && nest build payments && nest build cqrs && nest build saga"
+    "build:all": "npm run build:libs && nest build api-gateway && nest build users && nest build orders && nest build payments && nest build cqrs && nest build saga",
+    "prisma:generate:all": "prisma generate --schema apps/users/prisma/schema.prisma && prisma generate --schema apps/orders/prisma/schema.prisma && prisma generate --schema apps/payments/prisma/schema.prisma && prisma generate --schema apps/cqrs/prisma/schema.prisma"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",
