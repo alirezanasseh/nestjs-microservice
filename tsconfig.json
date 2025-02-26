@@ -17,6 +17,13 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {}
+    "paths": {
+      "@app/shared-types": [
+        "libs/shared-types/src"
+      ],
+      "@app/shared-types/*": [
+        "libs/shared-types/src/*"
+      ]
+    }
   }
 }

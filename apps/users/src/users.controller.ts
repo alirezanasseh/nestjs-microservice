@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { RegisterDto } from './dto/register.dto';
+import { RegisterDto } from '@app/shared-types';
 
 @Controller()
 export class UsersController {

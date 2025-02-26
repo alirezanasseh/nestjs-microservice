@@ -3,10 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 import { UserType } from '../types/user.type';
 import { JwtPayloadType } from '../types/jwt-payload.type';
 import { HttpService } from '@nestjs/axios';
-import { RegisterDto } from './dto/register.dto';
+import { RegisterDto, LoginDto } from '@app/shared-types';
 import { AuthReturnDto } from './dto/auth-return.dto';
 import { ConfigService } from '@nestjs/config';
-import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
