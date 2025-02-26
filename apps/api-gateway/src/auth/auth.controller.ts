@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { RegisterDto, LoginDto } from '@app/shared-types';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { UserContext } from '../decorators/user.decorator';
-import { UserType } from '../types/user.type';
+import { UserType } from '@app/shared-types';
 import { AuthService } from './auth.service';
 
 @Controller('auth')

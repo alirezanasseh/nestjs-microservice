@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserType } from '../types/user.type';
+import { UserType } from '@app/shared-types';
 import { JwtPayloadType } from '../types/jwt-payload.type';
 import { HttpService } from '@nestjs/axios';
 import { RegisterDto, LoginDto } from '@app/shared-types';
