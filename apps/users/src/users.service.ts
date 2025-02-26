@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './db/prisma.service';
-import { RegisterDto } from '@app/shared-types';
+import { RegisterDto, UserType } from '@app/shared-types';
 import * as argon2 from 'argon2';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class UsersService {
     return await argon2.verify(hashedPassword, password);
   }
 
-  async register(data: RegisterDto) {
+  async register(data: RegisterDto): Promise<UserType> {
     const { name, email, password } = data;
 
     const existingUser = await this.prisma.user.findUnique({
